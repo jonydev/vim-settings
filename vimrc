@@ -1,256 +1,234 @@
-"==========================说明===================
-"前缀代表生效范围
-"inoremap就只在插入(insert)模式下生效
-"vnoremap只在visual模式下生效
-"nnoremap就在normal模式下(狂按esc后的模式)生效
+set nocompatible
+filetype off
 
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+set splitright
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+call vundle#begin()
 
-set rtp+=$HOME/.vim/bundle/Vundle.vim
-call vundle#rc('$HOME/.vim/bundle')  
-Bundle 'gmarik/vundle'
-Bundle 'altercation/vim-colors-solarized'
+set clipboard=unnamed
 
-" github bundle
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-
-"==========================个人设置=====================================
-
-"解决中文乱码问题
-let &termencoding=&encoding
-set fileencodings=utf-8,gbk
-
-" encoding
-"set encoding=utf-8
-"set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-"set termencoding=utf-8
-"set ffs=unix,dos,mac
-"set formatoptions+=m
-"set formatoptions+=B
-
-"去除vim GUI的toolbar
-set guioptions-=T
-
-
-"括号跳转时，跳转的长度
-" How many tenths of a second to blink when matching brackets
-set mat=2
-
-"500字节换行
-" Linebreak on 500 characters
-set lbr
-set tw=500
-
-"退出vim，显示终端
-set t_ti= t_te=
-
-"==========================插件设置====================================
-"vim-markdown-settings
-"-------------------------------------------------
-let g:vim_markdown_frontmatter=1
-
-"vim-colors-solarized-settings
-"-------------------------------------------------
-"设置主题
-let g:solarized_termtrans=1
-let g:solarized_contrast="normal"
-let g:solarized_visibility="normal"
+syntax enable
 set background=dark
-set t_Co=256
-colorscheme solarized
-"colorscheme desert
-"colorscheme evening
-
-"字体
-set guifont=Lucida_Console
-"set guifont=consolas
-
-" status line
-set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
-set laststatus=2   " Always show the status line - use 2 lines for the status bar
-
-"==========================基本设置====================================
-
-" leader
-let mapleader = ','
-let g:mapleader = ','
-
-" syntax
-syntax on
-
-" history : how many lines of history VIM has to remember
-set history=2000
-
-" filetype
-filetype on
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
-" base
-set nocompatible                " don't bother with vi compatibility
-set autoread                    " reload files when changed on disk, i.e. via `git checkout`
-set shortmess=atI
-
-set magic                       " For regular expressions turn magic on
-set title                       " change the terminal's title
-set nobackup                    " do not keep a backup file
-
-set novisualbell                " turn off visual bell
-set noerrorbells                " don't beep
-set visualbell t_vb=            " turn off error beep/flash
-set t_vb=
-set tm=500
-
-" show location
-set cursorcolumn
-set cursorline
-
-
-" movement
-set scrolloff=7                 " keep 3 lines when scrolling
-
-
-" show
-set ruler                       " show the current row and column
-set number                      " show line numbers
+set expandtab
+set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+set number
+set list
+set hlsearch
 set nowrap
-set showcmd                     " display incomplete commands
-set showmode                    " display current modes
-set showmatch                   " jump to matches when entering parentheses
-set matchtime=2                 " tenths of a second to show the matching parenthesis
-
-
-" search
-set hlsearch                    " highlight searches
-set incsearch                   " do incremental searching, search as you type
-set ignorecase                  " ignore case when searching
-set smartcase                   " no ignorecase if Uppercase char present
-
-
-" tab
-set expandtab                   " expand tabs to spaces
-set smarttab
-set shiftround
-
-" indent
-set autoindent smartindent shiftround
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4                " insert mode tab and backspace use 4 spaces
-
-" NOT SUPPORT
-" fold
 set foldenable
-set foldmethod=indent
-set foldlevel=99
-let g:FoldMethod = 0
-map <leader>zz :call ToggleFold()<cr>
-fun! ToggleFold()
-    if g:FoldMethod == 0
-        exe "normal! zM"
-        let g:FoldMethod = 1
-    else
-        exe "normal! zR"
-        let g:FoldMethod = 0
-    endif
-endfun
+set guifont=Monaco:h12
 
-" select & complete
-set selection=inclusive
-set selectmode=mouse,key
+" set relative line numbers
+"set rnu
 
-set completeopt=longest,menu
-set wildmenu                           " show a navigable menu for tab completion"
-set wildmode=longest,list,full
-set wildignore=*.o,*~,*.pyc,*.class
-
-" others
-set backspace=indent,eol,start  " make that backspace key work the way it should
-set whichwrap+=<,>,h,l
-
-" if this not work ,make sure .viminfo is writable for you
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
-" NOT SUPPORT
-" Enable basic mouse behavior such as resizing buffers.
-" set mouse=a
-
-" ============================ key map ============================
-
-nnoremap k gk
-nnoremap gk k
-nnoremap j gj
-nnoremap gj j
-
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-nnoremap <F2> :set nu! nu?<CR>
-nnoremap <F3> :set list! list?<CR>
-nnoremap <F4> :set wrap! wrap?<CR>
-set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
-                                "    paste mode, where you can paste mass data
-                                "    that won't be autoindented
-au InsertLeave * set nopaste
-nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
-
-" kj 替换 Esc
-inoremap kj <Esc>
-
-" Quickly close the current window
-nnoremap <leader>q :q<CR>
-" Quickly save the current file
-nnoremap <leader>w :w<CR>
-
-" select all
-map <Leader>sa ggVG"
-
-" remap U to <C-r> for easier redo
-nnoremap U <C-r>
-
-" Swap implementations of ` and ' jump to markers
-" By default, ' jumps to the marked line, ` jumps to the marked line and
-" column, so swap them
-nnoremap ' `
-nnoremap ` '
-
-" switch # *
-" nnoremap # *
-" nnoremap * #
-
-"Keep search pattern at the center of the screen."
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-
-" remove highlight
-noremap <silent><leader>/ :nohls<CR>
-
-"Reselect visual block after indent/outdent.调整缩进后自动选中，方便再次操作
-vnoremap < <gv
+" visual mode: don't deselect text when identing
 vnoremap > >gv
+vnoremap < <gv
 
-" y$ -> Y Make Y behave like other capitals
-map Y y$
+let g:jsx_ext_required = 0 " allow JSX in normal JS files
+let g:syntastic_javascript_checkers = ['eslint']
 
-"Map ; to : and save a million keystrokes
-" ex mode commands made easy 用于快速进入命令行
-nnoremap ; :
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_loc_list_height = 5
+let g:syntastic_auto_loc_list = 0
+"let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_error_symbol = '❌'
+let g:syntastic_style_error_symbol = '⁉️'
+let g:syntastic_warning_symbol = '⚠️'
+let g:syntastic_style_warning_symbol = '💩'
+"highlight link SyntasticErrorSign SignColumn
+"highlight link SyntasticWarningSign SignColumn
+"highlight link SyntasticStyleErrorSign SignColumn
+"highlight link SyntasticStyleWarningSign SignColumn
 
-" save
-cmap w!! w !sudo tee >/dev/null %
+let mapleader = "\<Space>"
 
-" command mode, ctrl-a to head， ctrl-e to tail
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
+" config for 'kien/ctrlp.vim'
+let g:ctrlp_by_filename = 1
+let g:ctrlp_max_files = 0
+let g:ctrlp_working_path_mode = 'raw'
+let g:ctrlp_show_hidden = 1
 
+" ignores entries specified in .gitignore.
+let g:ctrlp_user_command = {
+      \ 'types': {
+      \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others | grep -v "^\..*$"'],
+      \ 2: ['.hg', 'hg --cwd %s locate -I .']
+      \ },
+      \ 'fallback': 'find %s -type f'
+      \ }
 
+" leader y as yank to OS clipboard
+"vmap <leader>y "+y
+
+" leader leader as :nohlsearch
+map <leader><Esc> :nohlsearch<CR>
+
+" set leader w as :w
+noremap <leader>w :w<CR>
+
+" set leader q as :q
+noremap <leader>q :q<CR>
+
+" reload vim
+map <silent> <leader>r :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
+" set mapping to navigate between open split windows
+noremap <C-J> <C-W>j<C-W>_
+noremap <C-k> <C-W>k<C-W>_
+noremap <C-h> <C-W>h<C-W>_
+noremap <C-l> <C-W>l<C-W>_
+
+noremap <leader>] :GtagsCursor<CR>
+"noremap <leader>[ <C-w><C-v><C-]>
+noremap <leader>' ciw''<Esc>P
+noremap <Leader>" ciw""<Esc>P
+vnoremap <Leader>' s''<Esc>P
+vnoremap <Leader>" s""<Esc>P
+vnoremap <Leader>p s<C-r>0<Esc>
+noremap <Leader>o o<Esc>
+noremap <Leader><Enter> i<Enter><Esc>
+noremap <Leader>u :CtrlPMRU<CR>
+
+"inoremap <C-h> <Left>
+"inoremap <C-j> <Down>
+"inoremap <C-k> <Up>
+"inoremap <C-l> <Right>
+
+map <F3> :NERDTreeFind<CR>
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'tpope/vim-sensible'
+Plugin 'ervandew/supertab'
+Plugin 'sheerun/vim-polyglot'
+"Plugin 'Raimondi/delimitMate'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'kien/ctrlp.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'ap/vim-css-color'
+Plugin 'mxw/vim-jsx'
+Plugin 'janko-m/vim-test'
+Plugin 'tpope/vim-endwise'
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'tpope/vim-projectionist'
+Plugin 'rking/ag.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'crusoexia/vim-monokai'
+"there exists ctrlp mru support
+"Plugin 'vim-scripts/mru.vim'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'haya14busa/incsearch.vim'
+Plugin 'haya14busa/incsearch-fuzzy.vim'
+Plugin 'haya14busa/incsearch-easymotion.vim'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'neomake/neomake'
+Plugin 't9md/vim-choosewin'
+Plugin 'gtags.vim'
+"Plugin 'sbdchd/neoformat'
+Plugin 'majutsushi/tagbar'
+"Plugin 'haya14busa/incsearch.vim'
+"Plugin 'haya14busa/incsearch-easymotion.vim'
+
+map <F2> :NERDTreeToggle<CR>
+
+call vundle#end()
+filetype plugin indent on
+
+" nerdtree"
+map <C-n> :NERDTreeToggle<CR>
+function! s:incsearch_config(...) abort
+  return incsearch#util#deepextend(deepcopy({
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {
+  \     "\<CR>": '<Over>(easymotion)'
+  \   },
+  \   'is_expr': 0
+  \ }), get(a:, 1, {}))
+endfunction
+noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
+noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
+function! s:config_easyfuzzymotion(...) abort
+  return extend(copy({
+  \   'converters': [incsearch#config#fuzzyword#converter()],
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+  \   'is_expr': 0,
+  \   'is_stay': 1
+  \ }), get(a:, 1, {}))
+endfunction
+noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+
+let NERDTreeShowHidden=1
+
+" column 80 indication"
+"let &colorcolumn=join(range(81,999),",")
+"let &colorcolumn="80".join(range(120,999),",")
+let &colorcolumn="80"
+"highlight ColorColumn ctermbg=235 guibg=#2c2d27
+
+set runtimepath^=~/.vim/bundle/ag
+let g:ag_working_path_mode="r"
+let g:ag_highlight=1
+
+nmap - <Plug>(choosewin)
+"let g:choosewin_overlay_enable = 1
+
+if executable('ag')
+  " note we extract the column as well as the file and line number
+  set grepprg=ag\ --nogroup\ --nocolor\ --column
+  set grepformat=%f:%l:%c%m
+endif
+call neomake#configure#automake('nw', 750)
+"augroup fmt
+  "autocmd!
+  "autocmd BufWritePre * undojoin | Neoformat
+"augroup END
+ca ag Ag!
+nnoremap ,c :let @* = expand("%:p").":".line('.')<cr>
+syntax on
+"set background=dark
+"colorscheme janah
+"colorscheme molokai
+"colorscheme soruby
+"colorscheme railscasts
+"colorscheme base
+"colorscheme lucid
+colorscheme lizard256
+"
+set cursorline
+"hi clear CursorLine
+"hi CursorLine gui=underline cterm=underline
+
+hi Search ctermbg=118
+hi Search guibg=#A6E22E
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8
