@@ -144,10 +144,8 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'neomake/neomake'
 Plugin 't9md/vim-choosewin'
 Plugin 'gtags.vim'
-"Plugin 'sbdchd/neoformat'
-Plugin 'majutsushi/tagbar'
-"Plugin 'haya14busa/incsearch.vim'
-"Plugin 'haya14busa/incsearch-easymotion.vim'
+Plugin 'fatih/vim-go'
+Plugin 'nsf/gocode', {'rtp': 'nvim/'}
 
 map <F2> :NERDTreeToggle<CR>
 
