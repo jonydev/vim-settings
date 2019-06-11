@@ -27,9 +27,9 @@ Curl is required for search.
 - Java support: install [JDK8 (version 8 required)][jdk-install] and add
   `--java-completer` when calling `install.py`.
   
-6.Install all 
+6. Install all 
  `cd ~/.vim/bundle/YouCompleteMe
-./install.py`
+ ./install.py`
   
   
   
